@@ -6,7 +6,6 @@ import queue
 
 
 class MovAvgFilter:
-
     # 이전 스텝의 평균
     prevAvg = 0
     # 가장 최근 n개의 값을 저장하는 큐
@@ -15,16 +14,16 @@ class MovAvgFilter:
     n = 0
 
     def __init__(self, _n):
-        # 초기화로 n개의 값을 0으로
+        # 초기화로 n개의 값을 0으로 둡니다.
         for _ in range(_n):
             self.xBuf.put(0)
-        # 참조할 데이터의 갯수를 저장
+        # 참조할 데이터의 갯수를 저장합니다.
         self.n = _n
 
     def movAvgFilter(self, x):
-        # 큐의 front 값은 x_(k-n) 에 해당
+        # 큐의 front 값은 x_(k-n) 에 해당합니다.
         front = self.xBuf.get()
-        # 이번 스텝에 입력 받은 값을 큐에 넣음
+        # 이번 스텝에 입력 받은 값을 큐에 넣습니다.
         self.xBuf.put(x)
 
         avg = self.prevAvg + (x - front) / self.n
@@ -66,21 +65,17 @@ def showVideo():
         blur = cv2.GaussianBlur(frame, (5, 5), 0)  # 가우시안 필터
         hsv = cv2.cvtColor(blur, cv2.COLOR_BGR2HSV)  # hsv 형식으로 변경
 
-        '''lower = np.array([30, 150, 50])  # 빨강색 탐지하도록 범위 지정
-        upper = np.array([255, 255, 180])'''
-
         lower = np.array([15, 150, 20])  # 노랑색 탐지하도록 범위 지정
         upper = np.array([35, 255, 255])
 
         mask = cv2.inRange(hsv, lower, upper)
-        # output = cv2.bitwise_and(frame, frame, mask=mask)
 
         contours, _ = cv2.findContours(  # 윤곽선 탐지, 바깥라인 꼭짓점만 반환
             mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
         if len(contours) != 0:
             for contour in contours:
-                if cv2.contourArea(contour) > 1500:
+                if cv2.contourArea(contour) > 3000:
 
                     x, y, w, h = cv2.boundingRect(contour)
 
@@ -92,24 +87,14 @@ def showVideo():
                     new_x = int(avg_x+avg_w/2)
                     new_y = int(avg_y+avg_h/2)
 
-                    '''if (new_x < 300) & (new_x > 250) & (new_y > 200) & (new_y < 270):
-                        cv2.rectangle(frame, (x, y), (x+w, y+h),
-                                      (0, 0, 255), 2)
-                        cv2.line(frame, (x-100, y+h),
-                                 (x+w+100, y+h), (0, 0, 255), 2)
-                        cv2.putText(
-                            frame, 'fire', (x, y-7), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2)'''
-
                     cv2.rectangle(frame, (x, y), (x+w, y+h),
                                   (0, 0, 255), 2)
                     #cv2.line(frame, (avg_x-100, avg_y+h),(avg_x+avg_w+100, avg_y+avg_h), (0, 0, 255), 2)
-                    cv2.putText(
-                        frame, 'fire', (x, y-7), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2)
+                    #cv2.putText(frame, 'fire', (x, y-7), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2)
+                    cv2.putText(frame, 'distance : ' + str((avg_w+avg_h)/2) + 'cm',
+                                (x, y-7), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
-                    print("중심좌표 : " + str(new_x) + ", " + str(new_y))
-                    # print(avg_w)
-                    # print(avg_h)
-                    print("평균값 : " + str((avg_w+avg_h)/2))
+                    #print("측정 거리 : " + str((avg_w+avg_h)/2))
 
         cv2.imshow('Output', mask)
         cv2.imshow('Original', frame)
