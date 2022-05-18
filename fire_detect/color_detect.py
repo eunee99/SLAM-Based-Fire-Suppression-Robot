@@ -40,7 +40,7 @@ def showVideo():
     avg_filter_h = MovAvgFilter(30)
 
     prev_time = 0
-    FPS = 20
+    FPS = 15
 
     try:
         cap = cv2.VideoCapture(0)  # 0: default camera
@@ -93,7 +93,10 @@ def showVideo():
                                   (0, 0, 255), 2)
                     #cv2.line(frame, (avg_x-100, avg_y+h),(avg_x+avg_w+100, avg_y+avg_h), (0, 0, 255), 2)
                     #cv2.putText(frame, 'fire', (x, y-7), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2)
-                    cv2.putText(frame, 'distance : ' + str((avg_w+avg_h)/2) + 'cm',
+
+                    distance = int((1/(avg_w+avg_h))*10000)
+
+                    cv2.putText(frame, 'distance : ' + str(distance) + 'cm',
                                 (avg_x, avg_y-7), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
                     #print("중심좌표 : " + str(new_x) + ", " + str(new_y))
