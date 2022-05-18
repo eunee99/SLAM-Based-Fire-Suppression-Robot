@@ -33,6 +33,7 @@ class MovAvgFilter:
 
 
 def showVideo():
+
     avg_filter_x = MovAvgFilter(30)
     avg_filter_y = MovAvgFilter(30)
     avg_filter_w = MovAvgFilter(30)
@@ -87,13 +88,15 @@ def showVideo():
                     new_x = int(avg_x+avg_w/2)
                     new_y = int(avg_y+avg_h/2)
 
-                    cv2.rectangle(frame, (x, y), (x+w, y+h),
+                    #cv2.rectangle(frame, (x, y), (x+w, y+h),(0, 0, 255), 2)
+                    cv2.rectangle(frame, (avg_x, avg_y), (avg_x+avg_w, avg_y+avg_h),
                                   (0, 0, 255), 2)
                     #cv2.line(frame, (avg_x-100, avg_y+h),(avg_x+avg_w+100, avg_y+avg_h), (0, 0, 255), 2)
                     #cv2.putText(frame, 'fire', (x, y-7), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2)
                     cv2.putText(frame, 'distance : ' + str((avg_w+avg_h)/2) + 'cm',
-                                (x, y-7), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+                                (avg_x, avg_y-7), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
+                    #print("중심좌표 : " + str(new_x) + ", " + str(new_y))
                     #print("측정 거리 : " + str((avg_w+avg_h)/2))
 
         cv2.imshow('Output', mask)
