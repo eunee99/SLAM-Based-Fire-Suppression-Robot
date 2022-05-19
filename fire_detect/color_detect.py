@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu May 19 14:41:19 2022
-
-@author: nyj
-"""
-
 import numpy as np
 import cv2
 import time
