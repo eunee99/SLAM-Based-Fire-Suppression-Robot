@@ -85,8 +85,8 @@ def showVideo():
                     avg_w = int(avg_filter_w.movAvgFilter(w))
                     avg_h = int(avg_filter_h.movAvgFilter(h))
 
-                    new_x = int(avg_x+avg_w/2)  #box_core
-                    new_y = int(avg_y+avg_h/2)
+                    box_x = int(avg_x+avg_w/2)  #box_core
+                    box_y = int(avg_y+avg_h/2)
 
                     #cv2.rectangle(frame, (x, y), (x+w, y+h),(0, 0, 255), 2)
                     cv2.rectangle(frame, (avg_x, avg_y), (avg_x+avg_w, avg_y+avg_h),
@@ -103,8 +103,11 @@ def showVideo():
                     #print("측정 거리 : " + str((avg_w+avg_h)/2))
                     
                     #박스와 화면 중점간의 거리
-                    distance_core = int(math.sqrt((320-new_x)**2 + (240-new_y)**2))
-                    print(distance_core)
+                    distance_x=320-box_x #박스가 왼쪽에 있으면 +, 오른쪽에 있으면 -
+                    distance_y=240-box_y #박스가 위쪽에 있으면 +, 아래쪽에 있으면 -
+                    
+                    #distance_core = int(math.sqrt(distance_x**2 + distance_y**2))
+                    print("("+str(distance_x)+","+str(distance_y)+")")
 
         cv2.imshow('Output', mask)
         cv2.imshow('Original', frame)
