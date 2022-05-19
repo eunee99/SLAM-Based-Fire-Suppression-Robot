@@ -1,11 +1,18 @@
-import time
+# -*- coding: utf-8 -*-
+"""
+Created on Thu May 19 14:41:19 2022
+
+@author: nyj
+"""
+
 import numpy as np
 import cv2
 import time
 import queue
-
+import math
 
 class MovAvgFilter:
+    
     # 이전 스텝의 평균
     prevAvg = 0
     # 가장 최근 n개의 값을 저장하는 큐
@@ -85,7 +92,7 @@ def showVideo():
                     avg_w = int(avg_filter_w.movAvgFilter(w))
                     avg_h = int(avg_filter_h.movAvgFilter(h))
 
-                    new_x = int(avg_x+avg_w/2)
+                    new_x = int(avg_x+avg_w/2)  #box_core
                     new_y = int(avg_y+avg_h/2)
 
                     #cv2.rectangle(frame, (x, y), (x+w, y+h),(0, 0, 255), 2)
@@ -101,6 +108,10 @@ def showVideo():
 
                     #print("중심좌표 : " + str(new_x) + ", " + str(new_y))
                     #print("측정 거리 : " + str((avg_w+avg_h)/2))
+                    
+                    #박스와 화면 중점간의 거리
+                    distance_core = int(math.sqrt((320-new_x)**2 + (240-new_y)**2))
+                    print(distance_core)
 
         cv2.imshow('Output', mask)
         cv2.imshow('Original', frame)
