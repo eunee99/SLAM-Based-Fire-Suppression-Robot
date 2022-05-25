@@ -6,7 +6,6 @@
 ros::NodeHandle nh;
 
 ////////////////// Tick Data Publishing Variables and Constants ///////////////
-
 // Encoder output to Arduino Interrupt pin. Tracks the tick count.
 #define ENC_IN_LEFT_A 18
 #define ENC_IN_RIGHT_A 20
@@ -69,10 +68,10 @@ const int b = 40;
 const int DRIFT_MULTIPLIER = 120;
 
 // Turning PWM output (0 = min, 255 = max for PWM values)
-const int PWM_TURN = 150;
+const int PWM_TURN = 40;
 
 // Set maximum and minimum limits for the PWM values
-const int PWM_MIN = 150;
+const int PWM_MIN = 40;
 const int PWM_MAX = 255;
 
 // Set linear velocity and PWM variable values for each wheel
@@ -85,6 +84,11 @@ double pwmRightReq = 0;
 // Record the time that the last velocity command was received
 double lastCmdVelReceived = 0;
 
+
+float mapPwm(float x, float out_min, float out_max)
+{
+  return x * (out_max - out_min) + out_min;
+}
 /////////////////////// Tick Data Publishing Functions ////////////////////////
 
 // Increment the number of ticks
@@ -229,143 +233,43 @@ void calc_vel_right_wheel() {
 }
 
 // cmd_vel callback
-void calc_pwm_values(const geometry_msgs::Twist& cmdVel) {
+void calc_pwm_values(const geometry_msgs::Twist& msg) {
+    // These variables will hold our desired PWM values
+   
+  float l = (msg.linear.x - msg.angular.z) / 2;
+  float r = (msg.linear.x + msg.angular.z) / 2;
 
-  // Record timestamp of last velocity command received
-  lastCmdVelReceived = (millis() / 1000);
-
-  // Calculate the PWM value given the desired velocity
-  pwmLeftReq = K_P * cmdVel.linear.x + b;
-  pwmRightReq = K_P * cmdVel.linear.x + b;
-
-  // Check if we need to turn
-  if (cmdVel.angular.z != 0.0)
+  if(msg.linear.x == 0)
   {
-
-    // Turn left
-    if (cmdVel.angular.z > 0.0) {
-      pwmLeftReq = -PWM_TURN;
-      pwmRightReq = PWM_TURN;
-    }
-
-    // Turn right
-    else {
-      pwmLeftReq = PWM_TURN;
-      pwmRightReq = -PWM_TURN;
-    }
-  }
-  // Go straight
-  else {
-
-    // Remove any differences in wheel velocities
-    // to make sure the robot goes straight
-    static double prevDiff = 0;
-    static double prevPrevDiff = 0;
-    double currDifference = velLeftWheel - velRightWheel;
-    double avgDifference = (prevDiff + prevPrevDiff + currDifference) / 3;
-    prevPrevDiff = prevDiff;
-    prevDiff = currDifference;
-
-    // Correct PWM values of both wheels to make the vehicle go straight
-    pwmLeftReq -= (int)(avgDifference * DRIFT_MULTIPLIER);
-    pwmRightReq += (int)(avgDifference * DRIFT_MULTIPLIER);
-  }
-
-  // Handle low PWM values
-  if (abs(pwmLeftReq) < PWM_MIN) {
-    pwmLeftReq = 0;
-  }
-  if (abs(pwmRightReq) < PWM_MIN) {
-    pwmRightReq = 0;
-  }
-}
-
-void set_pwm_values() {
-
-  // These variables will hold our desired PWM values
-  static int pwmLeftOut = 0;
-  static int pwmRightOut = 0;
-
-  // If the required PWM is of opposite sign as the output PWM, we want to
-  // stop the car before switching direction
-  // static bool stopped = false;
-//  if ((pwmLeftReq * velLeftWheel < 0 && pwmLeftOut != 0) || (pwmRightReq * velRightWheel < 0 && pwmRightOut != 0))
-//  {
-//    pwmLeftReq = 0;
-//    pwmRightReq = 0;
-//  }
-
-  // Set the direction of the motors
-  if (pwmLeftReq > 0) { // Left wheel forward
-    digitalWrite(in1, HIGH);
-    digitalWrite(in2, LOW);
-  }
-  else if (pwmLeftReq < 0) { // Left wheel reverse
+   if (msg.angular.z > 0) { // go right
     digitalWrite(in1, LOW);
     digitalWrite(in2, HIGH);
-  }
-  else if (pwmLeftReq == 0 && pwmLeftOut == 0 ) { // Left wheel stop
-    digitalWrite(in1, LOW);
-    digitalWrite(in2, LOW);
-  }
-  else { // Left wheel stop
-    digitalWrite(in1, LOW);
-    digitalWrite(in2, LOW);
-  }
-
-  if (pwmRightReq > 0) { // Right wheel forward
+    
     digitalWrite(in3, HIGH);
     digitalWrite(in4, LOW);
-  }
-  else if (pwmRightReq < 0) { // Right wheel reverse
+   }
+  else { // go left
+    digitalWrite(in1, HIGH);
+    digitalWrite(in2, LOW);
+    
     digitalWrite(in3, LOW);
     digitalWrite(in4, HIGH);
   }
-  else if (pwmRightReq == 0 && pwmRightOut == 0) { // Right wheel stop
-    digitalWrite(in3, LOW);
+  }
+  
+   
+  else { // go forward
+    digitalWrite(in1, HIGH);
+    digitalWrite(in2, LOW);
+    digitalWrite(in3, HIGH);
     digitalWrite(in4, LOW);
   }
-  else { // Right wheel stop
-    digitalWrite(in3, LOW);
-    digitalWrite(in4, LOW);
-  }
 
-  // Increase the required PWM if the robot is not moving
-  if (pwmLeftReq != 0 && velLeftWheel == 0) {
-    pwmLeftReq *= 1.5;
-  }
-  if (pwmRightReq != 0 && velRightWheel == 0) {
-    pwmRightReq *= 1.5;
-  }
+  uint16_t lpwm = mapPwm(fabs(l), PWM_MIN, PWM_MAX);
+  uint16_t rpwm = mapPwm(fabs(r), PWM_MIN, PWM_MAX);
 
-  // Calculate the output PWM value by making slow changes to the current value
-  if (abs(pwmLeftReq) > pwmLeftOut) {
-    pwmLeftOut += PWM_INCREMENT;
-  }
-  else if (abs(pwmLeftReq) < pwmLeftOut) {
-    pwmLeftOut -= PWM_INCREMENT;
-  }
-  else {}
-
-  if (abs(pwmRightReq) > pwmRightOut) {
-    pwmRightOut += PWM_INCREMENT;
-  }
-  else if (abs(pwmRightReq) < pwmRightOut) {
-    pwmRightOut -= PWM_INCREMENT;
-  }
-  else {}
-
-  // Conditional operator to limit PWM output at the maximum
-  pwmLeftOut = (pwmLeftOut > PWM_MAX) ? PWM_MAX : pwmLeftOut;
-  pwmRightOut = (pwmRightOut > PWM_MAX) ? PWM_MAX : pwmRightOut;
-
-  // PWM output cannot be less than 0
-  pwmLeftOut = (pwmLeftOut < 0) ? PWM_MIN : pwmLeftOut;
-  pwmRightOut = (pwmRightOut < 0) ? PWM_MIN : pwmRightOut;
-
-  // Set the PWM value on the pins
-  analogWrite(enA, pwmLeftOut);
-  analogWrite(enB, pwmRightOut);
+  analogWrite(enA, lpwm);
+  analogWrite(enB, rpwm);
 }
 
 // Set up ROS subscriber to the velocity command
@@ -437,6 +341,4 @@ void loop() {
     pwmLeftReq = 0;
     pwmRightReq = 0;
   }
-
-  set_pwm_values();
 }
