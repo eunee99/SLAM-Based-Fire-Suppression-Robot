@@ -24,7 +24,7 @@ class DiffTf:
         
         #### parameters #######
         self.rate = 10.0  # the rate at which to publish the transform
-        self.ticks_meter = float(9872)  # The number of wheel encoder ticks per meter of travel
+        self.ticks_meter = float(9865)  # The number of wheel encoder ticks per meter of travel
         self.base_width = float(0.375) # The wheel base width in meters
         
         self.base_frame_id = 'base_link' # the name of the base frame of the robot
