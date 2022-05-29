@@ -102,8 +102,8 @@ def showVideo():
                     #print("중심좌표 : " + str(new_x) + ", " + str(new_y))
                     #print("측정 거리 : " + str((avg_w+avg_h)/2))
                     
-                    #박스와 화면 중점간의 거리
-                    distance_x=320-box_x #박스가 왼쪽에 있으면 +, 오른쪽에 있으면 -
+                    #박스와 화면 중점간의 거리(좌표평면과 +/- 동일)
+                    distance_x=box_x-320 #박스가 오른쪽에 있으면 +, 왼쪽에 있으면 -
                     distance_y=240-box_y #박스가 위쪽에 있으면 +, 아래쪽에 있으면 -
                     
                     #distance_core = int(math.sqrt(distance_x**2 + distance_y**2))
