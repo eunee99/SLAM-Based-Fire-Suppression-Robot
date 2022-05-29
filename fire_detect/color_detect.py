@@ -66,7 +66,7 @@ def showVideo():
         blur = cv2.GaussianBlur(frame, (5, 5), 0)  # 가우시안 필터
         hsv = cv2.cvtColor(blur, cv2.COLOR_BGR2HSV)  # hsv 형식으로 변경
 
-        lower = np.array([15, 150, 20])  # 노랑색 탐지하도록 범위 지정
+        lower = np.array([0, 150, 100])  # 노랑색 탐지하도록 범위 지정
         upper = np.array([35, 255, 255])
 
         mask = cv2.inRange(hsv, lower, upper)
