@@ -46,11 +46,12 @@ def showVideo():
         cap = cv2.VideoCapture(0)  # 0: default camera
         print('Open camera')
     except:
-        print('Not work')
+        print('Not work')         #예외처리
 
     while True:
         ret, frame = cap.read()  # 카메라 프레임 읽기
-        if not ret:
+        
+        if not ret:              # 프레임을 읽기 실패
             print("Video error")
             break
 
@@ -60,13 +61,13 @@ def showVideo():
         if (ret is True) and (current_time > 1. / FPS):
             prev_time = time.time()
 
-        # 출력 영상 크기 픽셀 단위로 조정
+        # 출력 영상 크기 픽셀 단위로 조정(가로x세로)
         frame = cv2.resize(frame, (640, 480))
 
-        blur = cv2.GaussianBlur(frame, (5, 5), 0)  # 가우시안 필터
+        blur = cv2.GaussianBlur(frame, (5,5), 0)  # 가우시안 필터
         hsv = cv2.cvtColor(blur, cv2.COLOR_BGR2HSV)  # hsv 형식으로 변경
 
-        lower = np.array([0, 150, 100])  # 노랑색 탐지하도록 범위 지정
+        lower = np.array([0, 150, 100])  # 빨~노 탐지하도록 범위 지정
         upper = np.array([35, 255, 255])
 
         mask = cv2.inRange(hsv, lower, upper)
@@ -84,8 +85,9 @@ def showVideo():
                     avg_y = int(avg_filter_y.movAvgFilter(y))
                     avg_w = int(avg_filter_w.movAvgFilter(w))
                     avg_h = int(avg_filter_h.movAvgFilter(h))
-
-                    box_x = int(avg_x+avg_w/2)  #box_core
+                    
+                    #box_core
+                    box_x = int(avg_x+avg_w/2)  
                     box_y = int(avg_y+avg_h/2)
 
                     #cv2.rectangle(frame, (x, y), (x+w, y+h),(0, 0, 255), 2)
@@ -94,9 +96,13 @@ def showVideo():
                     #cv2.line(frame, (avg_x-100, avg_y+h),(avg_x+avg_w+100, avg_y+avg_h), (0, 0, 255), 2)
                     #cv2.putText(frame, 'fire', (x, y-7), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2)
 
-                    distance = int((1/(avg_w+avg_h))*10000)
+                    x=[10,20,30,40,50,60]#박스크기
+                    y=[70,60,50,40,30,20]#거리
+                    fun=np.polyfit(x,y,1) #y = fun[0]*x + fun[1]
+                    dia=math.sqrt((avg_w**2)+(avg_h**2))   #대각선길이
+                    distance=fun[0]*dia+fun[1]
 
-                    cv2.putText(frame, 'distance : ' + str(distance) + 'cm',
+                    cv2.putText(frame, 'distance : ' + str(round(distance,2)) + 'cm',
                                 (avg_x, avg_y-7), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
                     #print("중심좌표 : " + str(new_x) + ", " + str(new_y))
@@ -111,7 +117,7 @@ def showVideo():
 
         cv2.imshow('Output', mask)
         cv2.imshow('Original', frame)
-
+        
         key = cv2.waitKey(10) & 0xFF  # ESC를 누르면 종료
         if (key == 27):
             break
