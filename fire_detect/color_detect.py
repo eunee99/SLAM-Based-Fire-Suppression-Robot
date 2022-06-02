@@ -43,7 +43,8 @@ def showVideo():
     FPS = 15
 
     try:
-        cap = cv2.VideoCapture(0)  # 0: default camera
+        #cap = cv2.VideoCapture(1)  # 0: default camera
+        cap=cv2.VideoCapture(cv2.CAP_DSHOW+ 1)  #web cam
         print('Open camera')
     except:
         print('Not work')         #예외처리
