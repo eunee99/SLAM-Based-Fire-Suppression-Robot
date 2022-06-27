@@ -1,4 +1,3 @@
- # test_connect.py
 import paho.mqtt.client as mqtt
 import RPi.GPIO as GPIO
 import time
@@ -9,13 +8,14 @@ pubtopic0 = "deviceid/juju/evt/flame"
 server = "13.125.77.88"
 
 FLAME = 17  # BCM. 17, wPi. 0, Physical. 11(DOUT에 연결)
-
-GPIO.setmode(GPIO.BCM)
 gpio_pin=12
 scale=[261, 294, 329, 349, 392, 440, 493, 523]
+list=[7,5,7,5,7,5,7,5,7,5,7,5]
+
+GPIO.setmode(GPIO.BCM)
 GPIO.setup(FLAME, GPIO.IN)
 GPIO.setup(gpio_pin, GPIO.OUT)
-list=[7,5,7,5,7,5,7,5,7,5,7,5]
+
 
 # The callback function. It will be triggered when trying to connect to the MQTT broker
 # client is the client instance connected this time
