@@ -1,6 +1,5 @@
 #include <ros.h>
 #include <Servo.h> 
-#include <std_msgs/Int16.h>
 #include <std_msgs/Int8.h>
 #include <geometry_msgs/Twist.h>
 
