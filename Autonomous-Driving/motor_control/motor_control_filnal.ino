@@ -29,15 +29,12 @@ const int encoder_minimum = -32768;
 const int encoder_maximum = 32767;
 
 long previousMillis = 0;
-long previousMillis2 = 0;
 
 long currentMillis = 0;
-long currentMillis2 = 0;
 
 const int interval = 30;
-const int buzzer_interval = 1000;
 
-boolean buzzer_sel = true;
+boolean light_sel = true;
 
 // Motor A connections(LEFT)
 const int enA = 2;
@@ -52,8 +49,8 @@ const int in4 = 44;
 // Servo Motor Connection
 const int servo_motor = 11;
 
-// Buzzer Connection
-const int buzzer = 8;
+// Head light Connection
+const int light = 8;
 
 // Number of ticks per wheel revolution. We won't use this in this code.
 const int TICKS_PER_REVOLUTION = 4400; // original 4028
@@ -351,7 +348,7 @@ void setup() {
   pinMode(in2, OUTPUT);
   pinMode(in3, OUTPUT);
   pinMode(in4, OUTPUT);
-  pinMode(buzzer, OUTPUT);
+  pinMode(light, OUTPUT);
   servo.attach(servo_motor);
 
   // Turn off motors - Initial state
@@ -359,9 +356,15 @@ void setup() {
   digitalWrite(in2, LOW);
   digitalWrite(in3, LOW);
   digitalWrite(in4, LOW);
-  digitalWrite(buzzer, HIGH);
   servo.write(0);
-  delay(1000);
+
+  
+  for(int i = 0; i < 3; i++)
+  {
+    digitalWrite(light, light_sel);
+    delay(1000);
+    light_sel = ~light_sel;
+  }
 
   // Set the motor speed
   analogWrite(enA, 0);
@@ -381,29 +384,12 @@ void loop() {
   nh.spinOnce(); // call subscriber callback function
 
   currentMillis = millis();
-  currentMillis2 = millis();
   
   if (currentMillis - previousMillis > interval) 
   {
     leftPub.publish(&left_wheel_tick_count);
     rightPub.publish(&right_wheel_tick_count);
     previousMillis = currentMillis;
-  }
-
-  if (currentMillis2 - previousMillis2 > buzzer_interval)
-  {
-    buzzer_sel = ~buzzer_sel;
-    
-    if(buzzer_sel)
-    {
-      digitalWrite(buzzer, HIGH);
-    }
-
-    else
-    {
-      digitalWrite(buzzer, LOW);
-    }
-    
   }
 
   set_pwm_values();
