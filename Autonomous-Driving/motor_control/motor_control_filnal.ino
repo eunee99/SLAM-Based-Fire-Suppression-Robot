@@ -52,7 +52,6 @@ const int servo_motor = 11;
 // Head light Connection
 const int light = 8;
 
-// Number of ticks per wheel revolution. We won't use this in this code.
 const int TICKS_PER_REVOLUTION = 4400; // original 4028
 const int TICKS_PER_METER = 11000; // 2.43 revolution * 4400(TICKS_PER_REVOLUTION) (0.41m per revolution --> 1m / 0.41m == 2.43 revolution)
 
