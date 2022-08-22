@@ -30,8 +30,8 @@
 
 # 화재 진압
 ![image](https://user-images.githubusercontent.com/86957779/185987354-9cf9e327-e6ac-44ea-a1d0-fedbe4df4210.png)
-* 화재 감지기가 설치되어 있는 미리 설정된 Waypoint로 이동
 ![image](https://user-images.githubusercontent.com/86957779/185987380-957c65bd-0865-4e52-951e-ffb48a62180d.png)
-* 화재 인식 및 거리 추정
 ![image](https://user-images.githubusercontent.com/86957779/185987402-8ce67b4a-5925-4242-ae99-0610632bd6aa.png)
+* 화재 인식 및 거리 추정
+* 화재 감지기가 설치되어 있는 미리 설정된 Waypoint로 이동
 * 장전된 투척용 소화기 발사
