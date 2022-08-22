@@ -16,8 +16,8 @@
 
 # SLAM
 ![image](https://user-images.githubusercontent.com/86957779/185987179-14475b7f-5956-483d-a58d-810789d5b1cb.png)
-* Gmapping SLAM을 이용한 산학융합관 Map 제작
 ![image](https://user-images.githubusercontent.com/86957779/185987285-de8bdefd-3611-46f0-bb14-27bdf27525bc.png)
+* Gmapping SLAM을 이용한 산학융합관 Map 제작
 * AMCL을 통한 Map 상에서의 현재 위치 추정, 지역 경로계획 수행
 
 # TF-Tree
