@@ -35,3 +35,15 @@
 * BGR to HSV 변환하여 화재를 인식하고 주위에 Bounding Box 생성, Bounding Box의 넓이에 따른 실제 거리 값을 직접 측정하여 데이터를 구상하고, 2차 비선형 모델 추출
 * 화재 감지기가 설치되어 있는 미리 설정된 Waypoint로 이동
 * 상단부에 부착된 Servo Motor로 스프링에 장전된 투척용 소화기를 발사
+
+# Motor Control
+* controller: Arduino MEGA 2560
+
+# 엔코더에 의해 측정된 RPM
+* Current RPM = (60 * TICKS) / (t * PPR * 체배(2체배))
+
+# cmd_vel 토픽을 RPM으로 계산하는 공식
+* Target RPM = ((cmd_vel.linear.x * 60) - (cmd_vel.angular.z * 60 * ROBOT_WIDTH / 2) / (2 * pi * WHEEL_RADIUS))
+
+* Target RPM과 Current RPM의 에러를 구하여 PI 제어 실행  
+![PID_Compensation_Animated](https://user-images.githubusercontent.com/86957779/178277915-38c423bd-7814-4fe4-ab4d-f1f5d12e2d44.gif)
