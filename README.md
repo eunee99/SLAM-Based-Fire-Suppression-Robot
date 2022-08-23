@@ -23,11 +23,6 @@
 # TF-Tree
 ![178145641-561c84d2-12e8-4a1d-a049-f69c97b96efb](https://user-images.githubusercontent.com/86957779/178148198-4110a3a8-0096-49ec-b073-37fc9d0b91d0.png)
 
-# 화재 인식
-![image](https://user-images.githubusercontent.com/86957779/185987081-1866f0de-ed49-4cf7-a636-a30b4db73943.png)
-![image](https://user-images.githubusercontent.com/86957779/185987090-5edf1bf3-42b8-470b-a40f-ab2cb9fad946.png)
-* 화재 경보 발생, 서버에 화재 경보 전송
-
 # 화재 진압
 ![image](https://user-images.githubusercontent.com/86957779/185987354-9cf9e327-e6ac-44ea-a1d0-fedbe4df4210.png)
 ![image](https://user-images.githubusercontent.com/86957779/185987380-957c65bd-0865-4e52-951e-ffb48a62180d.png)
