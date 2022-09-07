@@ -18,7 +18,8 @@
 ![image](https://user-images.githubusercontent.com/86957779/185987179-14475b7f-5956-483d-a58d-810789d5b1cb.png)
 ![image](https://user-images.githubusercontent.com/86957779/185987285-de8bdefd-3611-46f0-bb14-27bdf27525bc.png)
 * Gmapping SLAM을 이용한 산학융합관 Map 제작
-* AMCL을 통한 Map 상에서의 현재 위치 추정, 지역 경로계획 수행
+* AMCL을 통한 Map 상에서의 현재 위치 추정
+* Dynamic Window Approach 기반의 지역 경로계획 수행
 
 # TF-Tree
 ![178145641-561c84d2-12e8-4a1d-a049-f69c97b96efb](https://user-images.githubusercontent.com/86957779/178148198-4110a3a8-0096-49ec-b073-37fc9d0b91d0.png)
