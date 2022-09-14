@@ -1,6 +1,6 @@
 # Fire-Suppression-Robot
 ![image](https://user-images.githubusercontent.com/86957779/185987023-7babd4d3-3c5d-41f4-9ef1-4cdf10b76ff5.png)
-
+> CP-CoP 금상 수상작
 
 |구성요소|이름|설명|
 |------|---|---|
