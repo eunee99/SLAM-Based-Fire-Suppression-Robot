@@ -45,3 +45,6 @@
 
 * Target RPM과 Current RPM의 에러를 구하여 PI 제어 실행  
 ![PID_Compensation_Animated](https://user-images.githubusercontent.com/86957779/178277915-38c423bd-7814-4fe4-ab4d-f1f5d12e2d44.gif)
+
+# 시연 영상
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/86957779/190202883-b3a56f85-b569-497f-b431-9cf4b353b2b1.gif)
