@@ -1,4 +1,4 @@
-# -Fire-Suppression-Robot
+# SLAM-Based-Fire-Suppression-Robot
 ![KakaoTalk_20220907_185414328_02](https://user-images.githubusercontent.com/86957779/190152387-012fd6f1-ba9a-437e-aa6d-43d1bd36dc05.jpg)
 ![KakaoTalk_20220907_185414328_01](https://user-images.githubusercontent.com/86957779/190152409-b167d4fe-3794-4630-ac94-a96fd021d2df.jpg)
 ![KakaoTalk_20220914_164038237_01](https://user-images.githubusercontent.com/86957779/190152195-c0194e4a-84b8-41a2-adce-a79c43bdf7d7.jpg)
