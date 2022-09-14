@@ -1,4 +1,7 @@
 # SLAM-Based-Fire-Suppression-Robot
+## 시연 영상
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/86957779/190202883-b3a56f85-b569-497f-b431-9cf4b353b2b1.gif)
+## Robot Frame
 ![KakaoTalk_20220907_185414328_02](https://user-images.githubusercontent.com/86957779/190152387-012fd6f1-ba9a-437e-aa6d-43d1bd36dc05.jpg)
 ![KakaoTalk_20220907_185414328_01](https://user-images.githubusercontent.com/86957779/190152409-b167d4fe-3794-4630-ac94-a96fd021d2df.jpg)
 ![KakaoTalk_20220914_164038237_01](https://user-images.githubusercontent.com/86957779/190152195-c0194e4a-84b8-41a2-adce-a79c43bdf7d7.jpg)
@@ -45,6 +48,3 @@
 
 * Target RPM과 Current RPM의 에러를 구하여 PI 제어 실행  
 ![PID_Compensation_Animated](https://user-images.githubusercontent.com/86957779/178277915-38c423bd-7814-4fe4-ab4d-f1f5d12e2d44.gif)
-
-# 시연 영상
-![ezgif com-gif-maker](https://user-images.githubusercontent.com/86957779/190202883-b3a56f85-b569-497f-b431-9cf4b353b2b1.gif)
