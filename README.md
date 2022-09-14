@@ -1,5 +1,6 @@
 # Fire-Suppression-Robot
 ![image](https://user-images.githubusercontent.com/86957779/185987023-7babd4d3-3c5d-41f4-9ef1-4cdf10b76ff5.png)
+![KakaoTalk_20220914_164038237_01](https://user-images.githubusercontent.com/86957779/190152195-c0194e4a-84b8-41a2-adce-a79c43bdf7d7.jpg)
 > CP-CoP 금상 수상작
 
 |구성요소|이름|설명|
