@@ -33,7 +33,7 @@
 ![image](https://user-images.githubusercontent.com/86957779/185987354-9cf9e327-e6ac-44ea-a1d0-fedbe4df4210.png)
 ![image](https://user-images.githubusercontent.com/86957779/185987380-957c65bd-0865-4e52-951e-ffb48a62180d.png)
 ![image](https://user-images.githubusercontent.com/86957779/185987402-8ce67b4a-5925-4242-ae99-0610632bd6aa.png)
-* BGR to HSV 변환하여 화재를 인식하고 주위에 Bounding Box 생성, Bounding Box의 넓이에 따른 실제 거리 값을 직접 측정하여 데이터를 구상하고, 2차 비선형 모델 추출
+* Bounding Box의 넓이에 따른 실제 거리 값을 직접 측정하여 데이터를 구상하고, 2차 비선형 모델 추출
 * 화재 감지기가 설치되어 있는 미리 설정된 Waypoint로 이동
 * 상단부에 부착된 Servo Motor로 스프링에 장전된 투척용 소화기를 발사
 
