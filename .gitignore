@@ -1,0 +1,6 @@
+# 확장자가 .ino 인 파일은 무시
+
+*.ino
+
+# controller 디렉토리에 있는 모든 파일을 무시
+controller/
